@@ -13,10 +13,13 @@ def is_prime(n: int) -> bool:
     >>> is_prime(8)
     False
     """
-    for i in range(2, n):
+    for i in range(2, n - 1):
         if n % i == 0:
             return False
-    return True
+    if n > 1:
+        return True
+    else:
+        return False
 
 
 def gcd(a: int, b: int) -> int:
@@ -28,13 +31,12 @@ def gcd(a: int, b: int) -> int:
     >>> gcd(3, 7)
     1
     """
-    if a == b or b == 0:
-        return max(a, b)
-    else:
+    while a != 0 and b != 0:
         if a > b:
-            return gcd(a - b, b)
+            a %= b
         else:
-            return gcd(a, b - a)
+            b %= a
+    return a + b
 
 
 def multiplicative_inverse(e: int, phi: int) -> int:
@@ -60,7 +62,7 @@ def multiplicative_inverse(e: int, phi: int) -> int:
 
     x, y = 0, 1
     i = len(integerparts)
-    while i != 1:
+    while i > 1:
         temp = y
         y = x - y * integerparts[i - 2]
         x = temp
