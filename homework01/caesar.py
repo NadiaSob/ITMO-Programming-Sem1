@@ -1,10 +1,14 @@
 import typing as tp
 
+upperCase = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'G', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
+             'V', 'W', 'X', 'Y', 'Z']
+lowerCase = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'g', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+             'v', 'w', 'x', 'y', 'z']
+
 
 def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
     """
     Encrypts plaintext using a Caesar cipher.
-
     >>> encrypt_caesar("PYTHON")
     'SBWKRQ'
     >>> encrypt_caesar("python")
@@ -16,29 +20,20 @@ def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
     """
     ciphertext = ""
     for s in plaintext:
-        if s == 'X':
-            ciphertext += 'A'
-        elif s == 'x':
-            ciphertext += 'a'
-        elif s == 'Y':
-            ciphertext += 'B'
-        elif s == 'y':
-            ciphertext += 'b'
-        elif s == 'Z':
-            ciphertext += 'C'
-        elif s == 'z':
-            ciphertext += 'c'
-        elif not 'a' <= s <= 'z' and not 'A' <= s <= 'Z':
-            ciphertext += s
+        if s in upperCase:
+            i = upperCase.index(s)
+            ciphertext += upperCase[(i + shift) % len(upperCase)]
+        elif s in lowerCase:
+            i = lowerCase.index(s)
+            ciphertext += lowerCase[(i + shift) % len(lowerCase)]
         else:
-            ciphertext += chr(ord(s) + shift)
+            ciphertext += s
     return ciphertext
 
 
 def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
     """
     Decrypts a ciphertext using a Caesar cipher.
-
     >>> decrypt_caesar("SBWKRQ")
     'PYTHON'
     >>> decrypt_caesar("sbwkrq")
@@ -50,29 +45,16 @@ def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
     """
     plaintext = ""
     for s in ciphertext:
-        if s == 'A':
-            plaintext += 'X'
-        elif s == 'a':
-            plaintext += 'x'
-        elif s == 'B':
-            plaintext += 'Y'
-        elif s == 'b':
-            plaintext += 'y'
-        elif s == 'C':
-            plaintext += 'Z'
-        elif s == 'c':
-            plaintext += 'z'
-        elif not 'a' <= s <= 'z' and not 'A' <= s <= 'Z':
-            plaintext += s
+        if s in upperCase:
+            i = upperCase.index(s)
+            plaintext += upperCase[(i - shift) % len(upperCase)]
+        elif s in lowerCase:
+            i = lowerCase.index(s)
+            plaintext += lowerCase[(i - shift) % len(lowerCase)]
         else:
-            plaintext += chr(ord(s) - shift)
+            plaintext += s
     return plaintext
 
 
-def caesar_breaker_brute_force(ciphertext: str, dictionary: tp.Set[str]) -> int:
-    """
-    Brute force breaking a Caesar cipher.
-    """
-    best_shift = 0
-    # PUT YOUR CODE HERE
-    return best_shift
+print(encrypt_caesar('PYTHON'))
+print(decrypt_caesar('SBWKRQ'))
