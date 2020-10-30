@@ -62,5 +62,5 @@ def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
             j = lowerCase.index(s)
             plaintext += lowerCase[(j - shift) % len(lowerCase)]
         else:
-            ciphertext += s
+            plaintext += s
     return plaintext
