@@ -33,7 +33,7 @@ def group(values: List[str], n: int) -> List[List[str]]:
     >>> group([1,2,3,4,5,6,7,8,9], 3)
     [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
     """
-    return [values[i: i + n] for i in range(0, len(values), n)]
+    return [values[i : i + n] for i in range(0, len(values), n)]
 
 
 def get_row(grid: List[List[str]], pos: Tuple[int, int]) -> List[str]:
@@ -90,7 +90,7 @@ def find_empty_positions(grid: List[List[str]]) -> Optional[Tuple[int, int]]:
     """
     for i in range(len(grid)):
         for j in range(len(grid[i])):
-            if grid[i][j] == '.':
+            if grid[i][j] == ".":
                 return i, j
     return None
 
@@ -107,11 +107,11 @@ def find_possible_values(grid: List[List[str]], pos: Tuple[int, int]) -> Set[str
     True
     """
     return (
-            set("123456789")
-            - set(get_row(grid, pos))
-            - set(get_col(grid, pos))
-            - set(get_block(grid, pos))
-            )
+        set("123456789")
+        - set(get_row(grid, pos))
+        - set(get_col(grid, pos))
+        - set(get_block(grid, pos))
+    )
 
 
 def solve(grid: List[List[str]]) -> Optional[List[List[str]]]:
@@ -139,7 +139,7 @@ def solve(grid: List[List[str]]) -> Optional[List[List[str]]]:
         if solution is not None:
             return solution
         else:
-            grid[pos[0]][pos[1]] = '.'
+            grid[pos[0]][pos[1]] = "."
 
 
 def check_solution(solution: List[List[str]]) -> bool:
@@ -190,8 +190,8 @@ def generate_sudoku(N: int) -> List[List[str]]:
         while True:
             row = random.randint(0, 8)
             col = random.randint(0, 8)
-            if grid[row][col] != '.':
-                grid[row][col] = '.'
+            if grid[row][col] != ".":
+                grid[row][col] = "."
                 break
     return grid
 
