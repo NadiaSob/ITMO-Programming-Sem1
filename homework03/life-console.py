@@ -24,16 +24,16 @@ class Console(UI):
 
     def run(self) -> None:
         self.draw_borders()
-        while self.life.is_changing and not self.life.is_max_generations_exceeded:
+        running = True
+        while running:
             self.draw_borders()
             self.draw_grid()
             self.screen.refresh()
-            sleep(0.25)
+            sleep(0.3)
             self.life.step()
         curses.endwin()
 
 
 if __name__ == "__main__":
     life = GameOfLife((30, 30))
-    ui = Console(life)
-    ui.run()
+    Console(life).run()

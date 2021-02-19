@@ -3,3 +3,8 @@ isort==5.4.2
 mypy==0.782
 pylint==2.6.0
 pytest==6.0.1
+
+life~=0.1.1
+pygame~=2.0.1
+ui~=0.1.4
+setuptools~=50.3.0

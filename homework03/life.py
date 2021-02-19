@@ -39,11 +39,9 @@ class GameOfLife:
         row, col = cell
         for i in [-1, 0, 1]:
             for j in [-1, 0, 1]:
-                if (
-                        (i, j) != (0, 0) and
+                if ((i, j) != (0, 0) and
                         0 <= row + i < self.rows and
-                        0 <= col + j < self.cols
-                ):
+                        0 <= col + j < self.cols):
                     neighbors.append(self.curr_generation[row + i][col + j])
         return neighbors
 

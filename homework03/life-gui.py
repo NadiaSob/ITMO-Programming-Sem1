@@ -16,12 +16,12 @@ class GUI(UI):
         self.screen = pygame.display.set_mode(self.screen_size)
 
     def draw_lines(self) -> None:
-        for i in range(0, self.width, self.cell_size):
+        for x in range(0, self.width, self.cell_size):
             pygame.draw.line(self.screen, pygame.Color('black'),
-                             (i, 0), (i, self.height))
-        for j in range(0, self.height, self.cell_size):
+                             (x, 0), (x, self.height))
+        for y in range(0, self.height, self.cell_size):
             pygame.draw.line(self.screen, pygame.Color('black'),
-                             (0, j), (self.width, j))
+                             (0, y), (self.width, y))
 
     def draw_grid(self) -> None:
         for i in range(self.life.rows):
@@ -47,25 +47,24 @@ class GUI(UI):
         pygame.display.set_caption('Game of Life')
         self.screen.fill(pygame.Color('white'))
 
-        is_running = True
+        running = True
         paused = False
-        while self.life.is_changing and not self.life.is_max_generations_exceeded and is_running:
+        while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    is_running = False
+                    running = False
 
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     (y, x) = pygame.mouse.get_pos()
                     cell_x = x // self.cell_size
                     cell_y = y // self.cell_size
-
                     if self.life.curr_generation[cell_x][cell_y]:
                         self.life.curr_generation[cell_x][cell_y] = 0
                     else:
                         self.life.curr_generation[cell_x][cell_y] = 1
 
-                    self.draw_grid()
                     self.draw_lines()
+                    self.draw_grid()
                     pygame.display.flip()
                     clock.tick(self.speed)
 
@@ -75,10 +74,8 @@ class GUI(UI):
 
             if not paused:
                 self.life.step()
-
             self.draw_lines()
             self.draw_grid()
-
             pygame.display.flip()
             clock.tick(self.speed)
         pygame.quit()
@@ -86,8 +83,7 @@ class GUI(UI):
 
 def main():
     game = GameOfLife(size=(30, 30))
-    app = GUI(game)
-    app.run()
+    GUI(game).run()
 
 
 if __name__ == '__main__':
